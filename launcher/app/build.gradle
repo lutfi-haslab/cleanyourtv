@@ -17,6 +17,7 @@ android {
 
     buildTypes {
         release {
+            debuggable true
             // R8 strips and optimises the code (AndroidX included): smaller APK, faster start on a slow TV CPU.
             minifyEnabled true
             shrinkResources true

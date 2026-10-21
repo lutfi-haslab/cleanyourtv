@@ -193,7 +193,15 @@ final class Config {
 
     /** The folder the theme tools push into; null when external storage is unavailable. */
     static File dir(Context ctx) {
-        return ctx.getExternalFilesDir(null);
+        File internal = ctx.getFilesDir();
+        if (internal != null && (new File(internal, FILE_NAME).exists() || new File(internal, WALLPAPER_NAME).exists())) {
+            return internal;
+        }
+        File ext = ctx.getExternalFilesDir(null);
+        if (ext != null && (new File(ext, FILE_NAME).exists() || new File(ext, WALLPAPER_NAME).exists())) {
+            return ext;
+        }
+        return internal != null ? internal : ext;
     }
 
     static Config load(Context ctx) {
